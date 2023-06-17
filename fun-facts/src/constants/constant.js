@@ -1,3 +1,3 @@
-export const ERROR_MESSAGES={
-    wrongInput:"You have entered a wrong input"
+export const ERROR={
+    message:"Oops! Something went wrong"
 }

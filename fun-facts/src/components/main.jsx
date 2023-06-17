@@ -1,7 +1,7 @@
 import { baseUrl, endPoints } from "../config/appConfig";
 import { GetApiHandler } from "../utilities/apiHandler";
 import { useState } from "react";
-import { ERROR_MESSAGES } from "../constants/constant";
+import { ERROR } from "../constants/constant";
 import Numbers from "./numbers";
 import Maths from "./maths";
 import Dates from "./dates";
@@ -25,7 +25,7 @@ const Main = () => {
         if (response?.data) {
           setnumbersData(response.data);
         } else {
-          setnumbersData(ERROR_MESSAGES.wrongInput);
+          setnumbersData(ERROR.message);
         }
         setnumbersDataLoader(false);
       })
@@ -40,7 +40,7 @@ const Main = () => {
         if (response?.data) {
           setfunRandomData(response.data);
         } else {
-          setfunRandomData("Oops! Something went wrong");
+          setfunRandomData(ERROR.message);
         }
         setfunRandomLoader(false);
       })
@@ -55,7 +55,7 @@ const Main = () => {
         if (response?.data) {
           setdatesData(response.data);
         } else {
-          setdatesData(ERROR_MESSAGES.wrongInput);
+          setdatesData(ERROR.message);
         }
         setdatesDataLoader(false);
       })
