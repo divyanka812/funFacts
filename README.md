@@ -1,4 +1,5 @@
-Fun Riddles Application
+**Fun Riddles Application**
+
 https://fun-facts-3w858a841-divyanka812.vercel.app/
 
 The Riddles application provides random fun riddles about a variety of topics such as science, literature, philosophy and other fascinating topics.
