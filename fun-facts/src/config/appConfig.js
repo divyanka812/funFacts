@@ -1,7 +1,10 @@
-export const baseUrl="http://numbersapi.com";
+const API_VERSION= 'v1';
 
-export const endPoints={
-    "funNumber":"/<number>",
-    "randomDate":"/random/date",
-    "randomTrivia":"/random/trivia"
+export const BASE_URL="https://api.api-ninjas.com/"+ API_VERSION;
+
+export const ENDPOINTS={
+    "trivia":"/trivia",
+    "riddles":"/riddles"
 }
+
+export const API_KEY='RaughQcepUgyNeTOGZ8T6A==aRKBFkBc3jBgfEzA';

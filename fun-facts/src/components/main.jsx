@@ -1,63 +1,47 @@
-import { baseUrl, endPoints } from "../config/appConfig";
+import { BASE_URL, ENDPOINTS } from "../config/appConfig";
 import { GetApiHandler } from "../utilities/apiHandler";
 import { useState } from "react";
 import { ERROR } from "../constants/constant";
-import Numbers from "./numbers";
-import Maths from "./maths";
-import Dates from "./dates";
-
+import Trivia from "./trivia";
+import Riddles from "./riddles";
+import {BsFillEmojiSmileFill} from 'react-icons/bs'
 const Main = () => {
-  const [enteredNum, setEnteredNum] = useState();
-  const [numbersData, setnumbersData] = useState("");
-  const [numbersDataLoader, setnumbersDataLoader] = useState(false);
-  const [funRandomData, setfunRandomData] = useState(false);
-  const [funRandomLoader, setfunRandomLoader] = useState("");
-  const [datesData, setdatesData] = useState("");
-  const [datesDataLoader, setdatesDataLoader] = useState(false);
+  const [triviaData, setTriviaData] = useState("");
+  const [errorTrivia, setErrorTrivia] = useState("");
+  const [triviaLoader, setTriviaLoader] = useState(false);
+  const [riddleData, setRiddleData] = useState("");
+  const [errorRiddle, setErrorRiddle] = useState("");
+  const [riddleLoader, setRiddleLoader] = useState(false);
 
-  function getNumberFacts() {
-    setnumbersDataLoader(true);
-    const getNumberFactsURL =
-      baseUrl + endPoints.funNumber.replace("<number>", enteredNum);
-
-    GetApiHandler(getNumberFactsURL, "GET")
-      .then((response) => {
-        if (response?.data) {
-          setnumbersData(response.data);
-        } else {
-          setnumbersData(ERROR.message);
-        }
-        setnumbersDataLoader(false);
-      })
-      .catch((error) => {});
-  }
-  function getRandomFacts() {
-    setfunRandomLoader(true);
-    const getRandomFactsURL = baseUrl + endPoints.randomTrivia;
+  function getRandomFacts(selectedCategory) {
+    setTriviaLoader(true);
+    const getRandomFactsURL =
+      BASE_URL + ENDPOINTS.trivia + "?category=" + selectedCategory;
 
     GetApiHandler(getRandomFactsURL, "GET")
       .then((response) => {
         if (response?.data) {
-          setfunRandomData(response.data);
+          setTriviaData(response.data[0]);
         } else {
-          setfunRandomData(ERROR.message);
+          setErrorTrivia(ERROR.message);
         }
-        setfunRandomLoader(false);
+        setTriviaLoader(false);
       })
       .catch((error) => {});
   }
-  function getDateFacts() {
-    setdatesDataLoader(true);
-    const getFunDateFactsURL = baseUrl + endPoints.randomDate;
+
+  function getRiddles() {
+    setRiddleLoader(true);
+    const getFunDateFactsURL = BASE_URL + ENDPOINTS.riddles;
 
     GetApiHandler(getFunDateFactsURL, "GET")
       .then((response) => {
         if (response?.data) {
-          setdatesData(response.data);
+          setRiddleData(response.data[0]);
         } else {
-          setdatesData(ERROR.message);
+          setErrorRiddle(ERROR.message);
         }
-        setdatesDataLoader(false);
+        setRiddleLoader(false);
       })
       .catch((error) => {});
   }
@@ -65,31 +49,25 @@ const Main = () => {
   return (
     <>
       <div className="bg-gradient-to-r from-violet-500 to-fuchsia-500 h-screen flex flex-col">
-        <h1 className="font-bold text-4xl py-10 text-white">
-          Fun facts about mathematics!!
-        </h1>
+       <div className="flex flex-row justify-center items-center gap-x-5"> <h1 className="font-bold text-4xl py-10 text-white">
+          Riddles & Fun!! </h1>
+        <BsFillEmojiSmileFill className="text-4xl text-white"/></div>
+        
         <div id="sandbox" className="">
           <div id="sandbox-text">Try it out!</div>
         </div>
         <div className="flex flex-col">
-          <Numbers
-            enteredNum={enteredNum}
-            setEnteredNum={setEnteredNum}
-            numbersData={numbersData}
-            getNumberFacts={getNumberFacts}
-            numbersDataLoader={numbersDataLoader}
-          />
-          <Maths
-            setfunRandomData={setfunRandomData}
-            funRandomData={funRandomData}
-            funRandomLoader={funRandomLoader}
+          <Trivia
+            triviaData={triviaData}
+            triviaLoader={triviaLoader}
             getRandomFacts={getRandomFacts}
+            error={errorTrivia}
           />
-          <Dates
-            setdatesData={setdatesData}
-            datesData={datesData}
-            datesDataLoader={datesDataLoader}
-            getDateFacts={getDateFacts}
+          <Riddles
+            getRiddles={getRiddles}
+            riddleData={riddleData}
+            errorRiddle={errorRiddle}
+            riddleLoader={riddleLoader}
           />
         </div>
       </div>
