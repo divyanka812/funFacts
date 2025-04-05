@@ -16,14 +16,14 @@ const Main = () => {
   function getRandomFacts(selectedCategory) {
     setTriviaLoader(true);
     const getRandomFactsURL =
-      BASE_URL + ENDPOINTS.trivia + "?category=" + selectedCategory;
+      BASE_URL + ENDPOINTS?.trivia + "?w=" + selectedCategory;
 
     GetApiHandler(getRandomFactsURL, "GET")
       .then((response) => {
         if (response?.data) {
-          setTriviaData(response.data[0]);
+          setTriviaData(response?.data[0]);
         } else {
-          setErrorTrivia(ERROR.message);
+          setErrorTrivia(ERROR?.message);
         }
         setTriviaLoader(false);
       })
@@ -32,14 +32,14 @@ const Main = () => {
 
   function getRiddles() {
     setRiddleLoader(true);
-    const getFunDateFactsURL = BASE_URL + ENDPOINTS.riddles;
+    const getFunDateFactsURL = BASE_URL + ENDPOINTS?.riddles;
 
     GetApiHandler(getFunDateFactsURL, "GET")
       .then((response) => {
         if (response?.data) {
-          setRiddleData(response.data[0]);
+          setRiddleData(response?.data[0]);
         } else {
-          setErrorRiddle(ERROR.message);
+          setErrorRiddle(ERROR?.message);
         }
         setRiddleLoader(false);
       })
